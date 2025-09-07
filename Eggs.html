@@ -206,7 +206,7 @@
 
         
     </div>
-    <button onclick="window.location.href='index.html';">Tic Tac Toe</button>
+    <button onclick="href='index.html';">Tic Tac Toe</button>
 
     <script>
         // Game state and configuration
@@ -364,7 +364,8 @@
         function drawBasket() {
             ctx.fillStyle = '#8B4513';
             ctx.beginPath();
-            ctx.arc(basket.x + basket.width/2, basket.y + basket.height, basket.width/2, 0, Math.PI, true);
+            //ctx.arc(basket.x + basket.width/2, basket.y + basket.height, basket.width/2, 0, Math.PI, true);
+            ctx.arc(basket.x + basket.width/2, basket.y, basket.width/2, 0, Math.PI, false);
             ctx.fill();
             
             // Basket rim
