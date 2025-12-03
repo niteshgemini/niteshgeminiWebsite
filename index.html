@@ -1,155 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tic Tac Toe</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f0f0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nitesh | niteshgemini</title>
 
-    h1 {
-      color: #333;
-      margin-bottom: 20px;
-    }
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background: #0d0d0d;
+            color: #e5e5e5;
+            line-height: 1.6;
+        }
 
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(3, 100px);
-      gap: 5px;
-    }
+        /* Smooth Center Layout */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+        }
 
-    .cell {
-      background-color: #fff;
-      border: 2px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
 
-    .cell:hover {
-      background-color: #eaeaea;
-    }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
 
-    .cell.disabled {
-      pointer-events: none;
-    }
+        header h2 {
+            font-size: 1.3rem;
+            color: #bbbbbb;
+            font-weight: 400;
+        }
 
-    #status {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      color: #555;
-    }
+        /* Bio Section */
+        .bio {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border: 1px solid #262626;
+        }
 
-    button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        .bio p {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
 
-    button:hover {
-      background-color: #45a049;
-    }
-  </style>
+        /* Quote */
+        .quote {
+            margin-top: 40px;
+            padding: 20px;
+            border-left: 4px solid #5c00b8;
+            background: #161616;
+            border-radius: 6px;
+            font-style: italic;
+            color: #cfcfcf;
+        }
+
+        	
+	/* FOOTER WITH ICONS */
+        footer {
+            background: #0f0f0f;
+            padding: 40px 20px 30px;
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px solid #1c1c1c;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1d1d1d;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            transition: 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .social-links a svg {
+            width: 22px;
+            height: 22px;
+            fill: #1360d0;
+            transition: 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #3a0c72;
+            transform: scale(1.15);
+        }
+
+        .social-links a:hover svg {
+            fill: #1360d0;
+        }
+
+        footer p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Fade Animation */
+        .fade-in {
+            animation: fadeIn 1.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        </style>
 </head>
+
 <body>
-  <h1>Tic Tac Toe</h1>
-  <div class="board" id="board"></div>
-  <div id="status">Player X's turn</div>
-  <button onclick="restartGame()">Restart Game</button>
-  <button onclick="location.href='Eggs.html';">Egg Game</button>
 
-  <script>
-    const board = document.getElementById('board');
-    const statusText = document.getElementById('status');
-    let currentPlayer = 'X';
-    let gameActive = true;
-    const cells = [];
+    <header class="fade-in">
+        <h1>Nitesh Gupta</h1>
+        <h2>aka <strong>niteshgemini</strong></h2>
+    </header>
 
-    const winningCombinations = [
-      [0,1,2], [3,4,5], [6,7,8], // rows
-      [0,3,6], [1,4,7], [2,5,8], // columns
-      [0,4,8], [2,4,6]           // diagonals
-    ];
+    <div class="container fade-in">
 
-    function createBoard() {
-      board.innerHTML = '';
-      cells.length = 0;
+        <section class="bio">
+            <p>
+                Hi, I’m Nitesh.
+A banker by profession, an engineer by training, and a philosopher-in-progress at heart. I’m someone who enjoys viewing the world through different shades — from technology and global economics to the strange mechanics that make society (and people) behave the way they do.
+            </p>
 
-      for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.index = i;
-        cell.addEventListener('click', handleCellClick);
-        board.appendChild(cell);
-        cells.push(cell);
-      }
-    }
+            <p>
+                I’ve worked across cities, met all kinds of personalities, and learned how to deal with people exactly the way they deserve — with humility, humour, and a bit of harmless chaos. I’m jovial, social, and easy to talk to, though I warn you: some of my jokes are so good they might offend you by accident.Right now, I’m exploring my path: deepening my financial knowledge and hoping to shift into IT within the bank one day. I love studying global debt, world functioning, economics, and anything that helps me understand how this strange planet actually operates.
+            </p>
 
-    function handleCellClick(e) {
-      const cell = e.target;
-      const index = cell.dataset.index;
+            <p>
+		I’m not someone who claims to have everything figured out — in fact, that’s exactly the point. I’m exploring as I go.
+                If you're a young explorer curious about life, welcome to my little corner of the internet and show love remember “Love is like a fart. If you have to force it, it’s probably a shit.”
+            </p>
+        </section>
 
-      if (!gameActive || cell.textContent !== '') return;
+        
 
-      cell.textContent = currentPlayer;
-      cell.classList.add('disabled');
+    </div>
+	<!-- SOCIAL FOOTER WITH LOGOS -->
+    <footer>
+        <div class="social-links">
 
-      if (checkWin()) {
-        statusText.textContent = `Player ${currentPlayer} wins!`;
-        gameActive = false;
-        return;
-      }
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/invites/contact/?utm_source=ig_contact_invite&utm_medium=copy_link&utm_content=1xkk7jb" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3.5A5.5 5.5 0 1017.5 13 5.5 5.5 0 0012 7.5zm0 9A3.5 3.5 0 1115.5 13 3.5 3.5 0 0112 16.5zm5.8-10.8a1.2 1.2 0 11-1.2 1.2 1.2 1.2 0 011.2-1.2z"/>
+                </svg>
+            </a>
 
-      if (checkDraw()) {
-        statusText.textContent = "It's a draw!";
-        gameActive = false;
-        return;
-      }
+            <!-- Reddit -->
+            <a href="https://www.reddit.com/u/niteshgemini/s/aU1NB8FsKi" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14.7 15.3c-.6.4-1.6.7-2.7.7s-2.1-.3-2.7-.7a.5.5 0 10-.6.8c.8.6 2 .9 3.3.9s2.5-.3 3.3-.9a.5.5 0 10-.6-.8zM9.5 11a1.1 1.1 0 11-1.1-1.1A1.1 1.1 0 019.5 11zm6.1-1.1A1.1 1.1 0 1114.5 11a1.1 1.1 0 011.1-1.1zM12 2a10 10 0 1010 10A10 10 0 0012 2zm5.7 11.4a2.1 2.1 0 00-3.5-1.7 5.6 5.6 0 00-4.4 0 2.1 2.1 0 00-3.5 1.7 2.1 2.1 0 003.3 1.8 5.5 5.5 0 004.8 0 2.1 2.1 0 003.3-1.8z"/>
+                </svg>
+            </a>
 
-      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-      statusText.textContent = `Player ${currentPlayer}'s turn`;
-    }
+            <!-- LinkedIn -->
+            <a href="#" target="_blank">
+                <svg viewBox="0 0 24 24">
+                    <path d="M4.98 3.5a2.5 2.5 0 112.5 2.5 2.5 2.5 0 01-2.5-2.5zM3 8.98h4v12H3zm7.5 0h3.8v1.7h.1a4.1 4.1 0 013.7-2c3.9 0 4.6 2.6 4.6 6v6.3h-4v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7h-4z"/>
+                </svg>
+            </a>
 
-    function checkWin() {
-      return winningCombinations.some(combination => {
-        return combination.every(index => {
-          return cells[index].textContent === currentPlayer;
-        });
-      });
-    }
-
-    function checkDraw() {
-      return cells.every(cell => cell.textContent !== '');
-    }
-
-    function restartGame() {
-      currentPlayer = 'X';
-      gameActive = true;
-      statusText.textContent = "Player X's turn";
-      createBoard();
-    }
-
-    // Initialize board on page load
-    createBoard();
-  </script>
+            <!-- Gmail -->
+            <a href="mailto:niteshgemini96@gmail.com">
+                <svg viewBox="0 0 24 24">
+                    <path d="M2 6.5v11c0 .8.7 1.5 1.5 1.5h17c.8 0 1.5-.7 1.5-1.5v-11l-10 6-10-6zM20.5 4h-17C2.7 4 2 4.7 2 5.5v.7l10 6 10-6v-.7c0-.8-.7-1.5-1.5-1.5z"/>
+                </svg>
+            </a>
+	</div>
+	<p>© 2025 Nitesh (niteshgemini) • All Rights Reserved</p>
 </body>
 </html>
-
-
